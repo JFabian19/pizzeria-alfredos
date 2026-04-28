@@ -4,8 +4,40 @@ import { ShoppingCart, Plus, Minus, X, Trash2, ChevronRight } from 'lucide-react
 
 import { menuData } from './data';
 
+function parseCSV(csvText) {
+  const lines = csvText.split(/\r?\n/);
+  const result = [];
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+    const row = [];
+    let inQuotes = false;
+    let currentStr = '';
+    for (let j = 0; j < line.length; j++) {
+      const char = line[j];
+      if (char === '"') {
+        if (inQuotes && line[j+1] === '"') {
+          currentStr += '"';
+          j++;
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (char === ',' && !inQuotes) {
+        row.push(currentStr);
+        currentStr = '';
+      } else {
+        currentStr += char;
+      }
+    }
+    row.push(currentStr);
+    result.push(row);
+  }
+  return result;
+}
+
 export default function App() {
-  const [activeCategory, setActiveCategory] = useState(menuData.menu[0].categoria);
+  const [menu, setMenu] = useState(menuData.menu);
+  const [activeCategory, setActiveCategory] = useState(menuData.menu[0]?.categoria || '');
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null); // For size selection modal
@@ -46,6 +78,35 @@ export default function App() {
     }).filter(item => item.cantidad > 0));
   };
 
+  const removeFromCart = (id) => {
+    setCart(prev => prev.filter(item => item.id !== id));
+  };
+
+  const getItemImage = (item, category) => {
+    if (item.imagenUrl) return item.imagenUrl;
+    if (category.categoria.toLowerCase().includes('promocion')) {
+      const nameLower = item.nombre.toLowerCase();
+      if (nameLower.includes('promo mediana')) return '/Promo Mediana.png';
+      if (nameLower.includes('promo familiar')) return '/Promo Familiar.png';
+      if (nameLower.includes('promo extra familiar')) return '/Promo Extra Familiar.png';
+      if (nameLower.includes('dúo mediano') || nameLower.includes('duo mediano')) return '/Dúo Mediano.png';
+      if (nameLower.includes('dúo extrafamiliar') || nameLower.includes('duo extrafamiliar') || nameLower.includes('duo extra familiar')) return '/Dúo Extra Familiar.png';
+      if (nameLower.includes('súper promo') || nameLower.includes('super promo') || nameLower.includes('1 pizza extra fam')) return '/Súper Promo.png';
+    }
+    
+    // Fallbacks premium de stock por categoría
+    if (category.categoria.toLowerCase().includes('pizza')) {
+      return 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=600&q=80';
+    }
+    if (category.categoria.toLowerCase().includes('pasta') || category.categoria.toLowerCase().includes('lasagna') || category.categoria.toLowerCase().includes('calzone')) {
+      return 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80';
+    }
+    if (category.categoria.toLowerCase().includes('bebida') || category.categoria.toLowerCase().includes('cerveza') || category.categoria.toLowerCase().includes('coctel')) {
+      return 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80';
+    }
+    return 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80';
+  };
+
   const handleProductClick = (product, category) => {
     if (product.precios && category.tamanos) {
       setSelectedProduct({ product, category });
@@ -55,7 +116,7 @@ export default function App() {
   };
 
   const sendOrderToWhatsApp = () => {
-    const phone = "51999999999"; // Replace with actual number
+    const phone = "51940986177";
     let text = `*¡Hola Alfredo's! Quiero hacer el siguiente pedido:* 🍕\n\n`;
     
     cart.forEach(item => {
@@ -67,11 +128,83 @@ export default function App() {
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
   };
 
+  useEffect(() => {
+    const fetchSheetData = async () => {
+      const sheetId = '1iTAA0NHRCGTpg7D_X20nOUH6bqmADiQ7oVQbzx88nFY';
+      try {
+        const fetchCSV = async (sheetName) => {
+          const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
+          const res = await fetch(url);
+          if (!res.ok) throw new Error('Fetch failed');
+          return await res.text();
+        };
+
+        let catsCSV = '';
+        try {
+          catsCSV = await fetchCSV('Categorías');
+        } catch (e) {
+          catsCSV = await fetchCSV('Categorias');
+        }
+
+        let platosCSV = '';
+        try {
+          platosCSV = await fetchCSV('Platos');
+        } catch (e) {
+          platosCSV = await fetchCSV('Hoja 2');
+        }
+
+        const catsRows = parseCSV(catsCSV);
+        const platosRows = parseCSV(platosCSV);
+
+        const categories = catsRows.slice(1).map(row => row[0]).filter(Boolean);
+        const platos = platosRows.slice(1).map(row => ({
+          categoria: row[0],
+          nombre: row[1],
+          descripcion: row[2],
+          precio: parseFloat(row[3]),
+          imagenUrl: row[4]
+        })).filter(p => p.categoria && p.nombre);
+
+        if (categories.length === 0 || platos.length === 0) return;
+
+        const newMenu = categories.map(catName => {
+          const catPlatos = platos.filter(p => p.categoria.toLowerCase() === catName.toLowerCase());
+          const originalCat = menuData.menu.find(c => c.categoria.toLowerCase() === catName.toLowerCase());
+          
+          return {
+            categoria: catName,
+            descripcion_seccion: originalCat?.descripcion_seccion || '',
+            tamanos: originalCat?.tamanos || null,
+            items: catPlatos.map(p => {
+              const originalItem = originalCat?.items.find(i => i.nombre.toLowerCase() === p.nombre.toLowerCase());
+              const originalBasePrice = originalItem?.precios ? originalItem.precios.find(pr => pr !== null) : originalItem?.precio;
+              const isPriceChanged = !isNaN(p.precio) && p.precio !== originalBasePrice;
+              
+              return {
+                nombre: p.nombre,
+                descripcion: p.descripcion,
+                precio: isPriceChanged || !originalItem?.precios ? p.precio : undefined,
+                precios: isPriceChanged ? null : originalItem?.precios,
+                imagenUrl: p.imagenUrl || ''
+              };
+            })
+          };
+        });
+
+        setMenu(newMenu);
+      } catch (error) {
+        console.error('Error loading sheet data, using local fallback:', error);
+      }
+    };
+
+    fetchSheetData();
+  }, []);
+
   // Scroll spy logic
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll('section[id]');
-      let currentActive = menuData.menu[0].categoria;
+      let currentActive = menu[0]?.categoria || '';
       
       sections.forEach(section => {
         const sectionTop = section.offsetTop;
@@ -110,15 +243,20 @@ export default function App() {
             <h1 className="font-fredoka text-3xl text-primary tracking-wide">
               ALFREDO'S
             </h1>
-            <div className="flex gap-3">
-              <a href="#" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-secondary shadow-sm hover:scale-105 transition-transform">
-                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <div className="flex gap-2">
+              <a href="https://www.instagram.com/alfredos_pastas_pizzas/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform" style={{background: 'linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)'}}>
+                <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.33 3.608 1.308.977.978 1.245 2.244 1.307 3.61.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.062 1.366-.33 2.633-1.308 3.608-.978.977-2.244 1.245-3.61 1.307-1.265.058-1.645.069-4.849.069-3.205 0-3.584-.012-4.849-.069-1.367-.062-2.633-.33-3.608-1.308-.977-.978-1.245-2.244-1.307-3.61-.058-1.265-.069-1.645-.069-4.849 0-3.204.012-3.584.069-4.849.062-1.366.33-2.633 1.308-3.608.978-.977 2.244-1.245 3.61-1.307 1.266-.058 1.646-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-1.28.058-2.508.274-3.497 1.262-.988.99-1.204 2.218-1.262 3.497-.058 1.28-.072 1.688-.072 4.947s.014 3.667.072 4.947c.058 1.279.274 2.508 1.262 3.497.99.988 2.218 1.204 3.497 1.262 1.28.058 1.688.072 4.947.072s3.667-.014 4.947-.072c1.279-.058 2.508-.274 3.497-1.262.989-.99 1.205-2.218 1.262-3.497.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.058-1.279-.274-2.508-1.262-3.497-.99-.988-2.218-1.204-3.497-1.262-1.28-.058-1.688-.072-4.947-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                 </svg>
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-secondary shadow-sm hover:scale-105 transition-transform">
-                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                  <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.323-1.325z"/>
+              <a href="https://www.facebook.com/alfredospastasypizzas" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#1877F2] flex items-center justify-center shadow-md hover:scale-110 transition-transform">
+                <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+              <a href="https://wa.me/51940986177" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center shadow-md hover:scale-110 transition-transform">
+                <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                 </svg>
               </a>
             </div>
@@ -138,7 +276,7 @@ export default function App() {
           {/* Categories Nav */}
 
           <div className="px-4 pb-4 overflow-x-auto no-scrollbar flex gap-2">
-            {menuData.menu.map((cat, i) => (
+            {menu.map((cat, i) => (
               <button
                 key={i}
                 onClick={() => scrollToCategory(cat.categoria)}
@@ -167,7 +305,7 @@ export default function App() {
 
         {/* Main Content */}
         <main className="px-4 py-6 pb-32">
-          {menuData.menu.map((category, idx) => (
+          {menu.map((category, idx) => (
             <section key={idx} id={category.categoria} className="mb-10 scroll-mt-36">
               <h2 className="font-oswald text-2xl mb-1 text-gray-800">{category.categoria}</h2>
               {category.descripcion_seccion && (
@@ -175,7 +313,7 @@ export default function App() {
               )}
               {!category.descripcion_seccion && <div className="h-4"></div>}
               
-              <div className="grid gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 {category.items.map((item, itemIdx) => {
                   const isPromo = category.categoria.toLowerCase().includes('promocion');
                   return (
@@ -184,30 +322,43 @@ export default function App() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: itemIdx * 0.05 }}
-                      whileHover={{ y: -4 }}
+                      whileHover={{ y: -2 }}
                       key={itemIdx}
-                      className={`bg-white rounded-[24px] p-4 flex justify-between items-center shadow-sm border border-gray-50 ${isPromo ? 'border-accent/50 bg-yellow-50/30' : ''}`}
+                      className={`bg-white rounded-[24px] p-4 flex justify-between items-center shadow-sm border border-gray-50 ${isPromo ? 'border-accent/30 bg-yellow-50/20' : ''}`}
                     >
-                      <div className="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center text-center text-[10px] text-gray-400 border border-dashed border-gray-200 flex-shrink-0 mr-3 font-inter leading-tight p-1">
-                        aca va aimagen
+                      <div className="w-20 h-20 bg-white rounded-2xl overflow-hidden flex items-center justify-center border border-dashed border-gray-200 flex-shrink-0 mr-4 p-1 shadow-sm">
+                        <img 
+                          src={getItemImage(item, category)} 
+                          alt={item.nombre} 
+                          className="w-full h-full object-cover rounded-xl"
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80';
+                          }}
+                        />
                       </div>
+                      
                       <div className="flex-1 pr-2">
-
-                        <h3 className="font-titan text-lg text-gray-800 mb-1 leading-tight">{item.nombre}</h3>
+                        <h3 className="font-titan text-base text-gray-800 mb-1 leading-tight line-clamp-2">
+                          {item.nombre}
+                        </h3>
                         {item.descripcion && (
-                          <p className="text-xs text-gray-500 line-clamp-2 mb-2">{item.descripcion}</p>
+                          <p className="text-[11px] text-gray-400 font-inter mb-1 line-clamp-2 leading-snug">
+                            {item.descripcion}
+                          </p>
                         )}
-                        <div className="text-primary font-bold">
+                        <div className="text-primary font-bold text-sm">
                           {item.precio ? `S/ ${item.precio.toFixed(2)}` : (
-                            <span className="text-sm text-gray-500 font-medium">Desde S/ {Math.min(...item.precios.filter(p=>p)).toFixed(2)}</span>
+                            <span className="text-xs text-gray-500 font-medium">Desde S/ {Math.min(...item.precios.filter(p=>p)).toFixed(2)}</span>
                           )}
                         </div>
                       </div>
+                      
                       <button 
                         onClick={() => handleProductClick(item, category)}
-                        className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center text-primary shadow-sm hover:bg-primary hover:text-white transition-colors flex-shrink-0 border border-gray-100"
+                        className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary shadow-md hover:scale-105 transition-transform flex-shrink-0 border border-gray-100"
                       >
-                        <Plus size={24} />
+                        <Plus size={20} />
                       </button>
                     </motion.div>
                   )
@@ -341,7 +492,7 @@ export default function App() {
                           </div>
                           <div className="flex flex-col items-end justify-between">
                             <button 
-                              onClick={() => updateQuantity(item.id, -item.cantidad)}
+                              onClick={() => removeFromCart(item.id)}
                               className="text-gray-400 hover:text-red-500"
                             >
                               <Trash2 size={18} />
@@ -381,6 +532,70 @@ export default function App() {
             </>
           )}
         </AnimatePresence>
+
+        {/* Location Map Section */}
+        <section className="px-4 pb-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-white rounded-[24px] p-5 shadow-sm border border-gray-50 overflow-hidden"
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <div>
+                <h2 className="font-oswald text-xl text-gray-800">ENCUÉNTRANOS</h2>
+                <p className="text-xs text-gray-500 font-inter">Visítanos en nuestro local</p>
+              </div>
+            </div>
+            <div className="rounded-2xl overflow-hidden border border-gray-100">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3924.84005327876!2d-77.1189375!3d-11.869937499999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105d3f598d8e67d%3A0xe56d6becd197a4a3!2sPizzeria%20Alfredo&#39;s%20pastas%20%26%20pizza!5e1!3m2!1ses!2spe!4v1777405998436!5m2!1ses!2spe" 
+                width="100%" 
+                height="250" 
+                style={{border: 0}} 
+                allowFullScreen="" 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Ubicación Pizzeria Alfredo's"
+                className="w-full"
+              />
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Footer */}
+        <footer className="bg-gray-900 text-white px-6 py-8 text-center">
+          <h3 className="font-fredoka text-2xl text-primary mb-2">ALFREDO'S</h3>
+          <p className="text-gray-400 text-sm font-inter mb-1">Pastas & Pizzas</p>
+          <p className="text-gray-500 text-xs font-inter mb-4">¡Deliciosamente irresistible!</p>
+          
+          <div className="flex justify-center gap-3 mb-5">
+            <a href="https://www.instagram.com/alfredos_pastas_pizzas/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition-transform" style={{background: 'linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)'}}>
+              <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.33 3.608 1.308.977.978 1.245 2.244 1.307 3.61.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.062 1.366-.33 2.633-1.308 3.608-.978.977-2.244 1.245-3.61 1.307-1.265.058-1.645.069-4.849.069-3.205 0-3.584-.012-4.849-.069-1.367-.062-2.633-.33-3.608-1.308-.977-.978-1.245-2.244-1.307-3.61-.058-1.265-.069-1.645-.069-4.849 0-3.204.012-3.584.069-4.849.062-1.366.33-2.633 1.308-3.608.978-.977 2.244-1.245 3.61-1.307 1.266-.058 1.646-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-1.28.058-2.508.274-3.497 1.262-.988.99-1.204 2.218-1.262 3.497-.058 1.28-.072 1.688-.072 4.947s.014 3.667.072 4.947c.058 1.279.274 2.508 1.262 3.497.99.988 2.218 1.204 3.497 1.262 1.28.058 1.688.072 4.947.072s3.667-.014 4.947-.072c1.279-.058 2.508-.274 3.497-1.262.989-.99 1.205-2.218 1.262-3.497.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.058-1.279-.274-2.508-1.262-3.497-.99-.988-2.218-1.204-3.497-1.262-1.28-.058-1.688-.072-4.947-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/alfredospastasypizzas" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#1877F2] flex items-center justify-center hover:scale-110 transition-transform">
+              <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://wa.me/51940986177" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center hover:scale-110 transition-transform">
+              <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
+          </div>
+
+          <div className="text-gray-500 text-xs font-inter space-y-1 mb-4">
+            <p>📍 Lunes a Domingos de 12:00PM a 12:00AM</p>
+            <p>📞 +51 940 986 177</p>
+          </div>
+          
+          <div className="border-t border-gray-700 pt-4">
+            <p className="text-gray-600 text-xs font-inter">© 2025 Pizzeria Alfredo's. Todos los derechos reservados.</p>
+          </div>
+        </footer>
 
       </div>
     </div>
