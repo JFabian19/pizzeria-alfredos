@@ -49,14 +49,57 @@ export const menuData = {
     },
     {
       "categoria": "PASTAS",
-      "descripcion_seccion": "Spaguettis, Macarrones, Fetuccinis o Ravioles",
-      "items": [
-        { "nombre": "A LA BOLOGNESA", "descripcion": "Salsa de carne tradicional", "precio": 13.00 },
-        { "nombre": "A LO ALFREDO", "descripcion": "Salsa blanca cremosa con jamón y queso", "precio": 13.00 },
-        { "nombre": "EN SALSA ROSSINI", "descripcion": "Salsa fusión rosada con especias", "precio": 13.00 },
-        { "nombre": "EN SALSA PESTO", "descripcion": "Tradicional salsa verde de albahaca fresca", "precio": 13.00 },
-        { "nombre": "A LA HUANCAINA", "descripcion": "Fusión peruana con crema de ají amarillo", "precio": 13.00 },
-        { "nombre": "A LO ALFREDO ESPECIAL", "descripcion": "Receta premium de la casa", "precio": 15.00 }
+      "descripcion_seccion": "Elige tu tipo de pasta y salsa favorita",
+      "nota_adicional": "+ S/5.90 PECHUGA, BISTECK, CHULETA, CHURRASCO O MILANESA",
+      "subcategorias": [
+        {
+          "nombre": "SPAGUETTIS",
+          "imagen": "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=600&q=80",
+          "items": [
+            { "nombre": "A LA BOLOGNESA", "descripcion": "Salsa de carne tradicional", "precio": 13.00 },
+            { "nombre": "A LO ALFREDO", "descripcion": "Salsa blanca cremosa con jamón y queso", "precio": 13.00 },
+            { "nombre": "EN SALSA ROSSINI", "descripcion": "Salsa fusión rosada con especias", "precio": 13.00 },
+            { "nombre": "EN SALSA PESTO", "descripcion": "Tradicional salsa verde de albahaca fresca", "precio": 13.00 },
+            { "nombre": "A LA HUANCAINA", "descripcion": "Fusión peruana con crema de ají amarillo", "precio": 13.00 },
+            { "nombre": "A LO ALFREDO ESPECIAL", "descripcion": "Receta premium de la casa", "precio": 15.00 }
+          ]
+        },
+        {
+          "nombre": "MACARRONES",
+          "imagen": "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=600&q=80",
+          "items": [
+            { "nombre": "A LA BOLOGNESA", "descripcion": "Salsa de carne tradicional", "precio": 13.00 },
+            { "nombre": "A LO ALFREDO", "descripcion": "Salsa blanca cremosa con jamón y queso", "precio": 13.00 },
+            { "nombre": "EN SALSA ROSSINI", "descripcion": "Salsa fusión rosada con especias", "precio": 13.00 },
+            { "nombre": "EN SALSA PESTO", "descripcion": "Tradicional salsa verde de albahaca fresca", "precio": 13.00 },
+            { "nombre": "A LA HUANCAINA", "descripcion": "Fusión peruana con crema de ají amarillo", "precio": 13.00 },
+            { "nombre": "A LO ALFREDO ESPECIAL", "descripcion": "Receta premium de la casa", "precio": 15.00 }
+          ]
+        },
+        {
+          "nombre": "FETUCCINIS",
+          "imagen": "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=600&q=80",
+          "items": [
+            { "nombre": "A LA BOLOGNESA", "descripcion": "Salsa de carne tradicional", "precio": 14.00 },
+            { "nombre": "A LO ALFREDO", "descripcion": "Salsa blanca cremosa con jamón y queso", "precio": 14.00 },
+            { "nombre": "EN SALSA ROSSINI", "descripcion": "Salsa fusión rosada con especias", "precio": 14.00 },
+            { "nombre": "EN SALSA PESTO", "descripcion": "Tradicional salsa verde de albahaca fresca", "precio": 14.00 },
+            { "nombre": "A LA HUANCAINA", "descripcion": "Fusión peruana con crema de ají amarillo", "precio": 14.00 },
+            { "nombre": "A LO ALFREDO ESPECIAL", "descripcion": "Receta premium de la casa", "precio": 16.00 }
+          ]
+        },
+        {
+          "nombre": "RAVIOLES",
+          "imagen": "https://images.unsplash.com/photo-1587740908075-9e245070dfaa?auto=format&fit=crop&w=600&q=80",
+          "items": [
+            { "nombre": "A LA BOLOGNESA", "descripcion": "Salsa de carne tradicional", "precio": 17.00 },
+            { "nombre": "A LO ALFREDO", "descripcion": "Salsa blanca cremosa con jamón y queso", "precio": 17.00 },
+            { "nombre": "EN SALSA ROSSINI", "descripcion": "Salsa fusión rosada con especias", "precio": 17.00 },
+            { "nombre": "EN SALSA PESTO", "descripcion": "Tradicional salsa verde de albahaca fresca", "precio": 17.00 },
+            { "nombre": "A LA HUANCAINA", "descripcion": "Fusión peruana con crema de ají amarillo", "precio": 17.00 },
+            { "nombre": "A LO ALFREDO ESPECIAL", "descripcion": "Receta premium de la casa", "precio": 19.00 }
+          ]
+        }
       ]
     },
     {

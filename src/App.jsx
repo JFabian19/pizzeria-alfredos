@@ -313,57 +313,140 @@ export default function App() {
               )}
               {!category.descripcion_seccion && <div className="h-4"></div>}
               
-              <div className="grid grid-cols-1 gap-4">
-                {category.items.map((item, itemIdx) => {
-                  const isPromo = category.categoria.toLowerCase().includes('promocion');
-                  return (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: itemIdx * 0.05 }}
-                      whileHover={{ y: -2 }}
-                      key={itemIdx}
-                      className={`bg-white rounded-[24px] p-4 flex justify-between items-center shadow-sm border border-gray-50 ${isPromo ? 'border-accent/30 bg-yellow-50/20' : ''}`}
-                    >
-                      <div className="w-20 h-20 bg-white rounded-2xl overflow-hidden flex items-center justify-center border border-dashed border-gray-200 flex-shrink-0 mr-4 p-1 shadow-sm">
-                        <img 
-                          src={getItemImage(item, category)} 
-                          alt={item.nombre} 
-                          className="w-full h-full object-cover rounded-xl"
-                          onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.src = 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80';
-                          }}
-                        />
-                      </div>
-                      
-                      <div className="flex-1 pr-2">
-                        <h3 className="font-titan text-base text-gray-800 mb-1 leading-tight line-clamp-2">
-                          {item.nombre}
-                        </h3>
-                        {item.descripcion && (
-                          <p className="text-[11px] text-gray-400 font-inter mb-1 line-clamp-2 leading-snug">
-                            {item.descripcion}
-                          </p>
-                        )}
-                        <div className="text-primary font-bold text-sm">
-                          {item.precio ? `S/ ${item.precio.toFixed(2)}` : (
-                            <span className="text-xs text-gray-500 font-medium">Desde S/ {Math.min(...item.precios.filter(p=>p)).toFixed(2)}</span>
-                          )}
+              {/* Subcategories (Pastas) */}
+              {category.subcategorias ? (
+                <div className="space-y-8">
+                  {category.subcategorias.map((sub, subIdx) => (
+                    <div key={subIdx}>
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-14 h-14 rounded-2xl overflow-hidden flex-shrink-0 shadow-md border-2 border-accent/40">
+                          <img src={sub.imagen} alt={sub.nombre} className="w-full h-full object-cover" />
+                        </div>
+                        <div>
+                          <h3 className="font-oswald text-lg text-gray-800 tracking-wide">{sub.nombre}</h3>
+                          <p className="text-xs text-gray-400 font-inter">Elige tu salsa favorita</p>
                         </div>
                       </div>
-                      
-                      <button 
-                        onClick={() => handleProductClick(item, category)}
-                        className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary shadow-md hover:scale-105 transition-transform flex-shrink-0 border border-gray-100"
-                      >
-                        <Plus size={20} />
-                      </button>
+                      <div className="grid grid-cols-2 gap-3">
+                        {sub.items.map((item, itemIdx) => (
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: itemIdx * 0.04 }}
+                            whileHover={{ y: -3 }}
+                            key={itemIdx}
+                            className="bg-white rounded-[20px] overflow-hidden shadow-sm border border-gray-100 flex flex-col"
+                          >
+                            <div className="aspect-square bg-gray-50 overflow-hidden p-3">
+                              <img 
+                                src={sub.imagen} 
+                                alt={item.nombre} 
+                                className="w-full h-full object-cover rounded-2xl"
+                                onError={(e) => {
+                                  e.target.onerror = null;
+                                  e.target.src = 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80';
+                                }}
+                              />
+                            </div>
+                            <div className="p-3 flex flex-col flex-1">
+                              <h4 className="font-oswald text-sm text-gray-800 leading-tight mb-1 line-clamp-2">
+                                {item.nombre}
+                              </h4>
+                              {item.descripcion && (
+                                <p className="text-[10px] text-gray-400 font-inter mb-2 line-clamp-2 leading-snug flex-1">
+                                  {item.descripcion}
+                                </p>
+                              )}
+                              <div className="flex items-center justify-between mt-auto">
+                                <span className="text-primary font-bold text-base font-oswald">
+                                  S/.{item.precio.toFixed(2)}
+                                </span>
+                                <button 
+                                  onClick={() => addToCart({ ...item, nombre: `${item.nombre} (${sub.nombre})` })}
+                                  className="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-primary hover:text-white transition-all duration-200 hover:scale-110"
+                                >
+                                  <Plus size={18} />
+                                </button>
+                              </div>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                  
+                  {/* Protein add-on banner */}
+                  {category.nota_adicional && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      className="bg-gradient-to-r from-accent/20 to-accent/10 rounded-2xl p-4 border border-accent/30 flex items-center gap-3"
+                    >
+                      <div className="bg-accent text-gray-900 rounded-full w-14 h-14 flex items-center justify-center flex-shrink-0 font-oswald font-bold text-sm shadow-md">
+                        +5.90
+                      </div>
+                      <p className="font-oswald text-sm text-gray-700 tracking-wide leading-snug">
+                        {category.nota_adicional.replace('+ S/5.90 ', '')}
+                      </p>
                     </motion.div>
-                  )
-                })}
-              </div>
+                  )}
+                </div>
+              ) : (
+                /* Regular items - Vertical card layout */
+                <div className="grid grid-cols-2 gap-3">
+                  {category.items.map((item, itemIdx) => {
+                    const isPromo = category.categoria.toLowerCase().includes('promocion');
+                    return (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: itemIdx * 0.04 }}
+                        whileHover={{ y: -3 }}
+                        key={itemIdx}
+                        className={`bg-white rounded-[20px] overflow-hidden shadow-sm border border-gray-100 flex flex-col ${isPromo ? 'border-accent/30' : ''}`}
+                      >
+                        <div className="aspect-square bg-gray-50 overflow-hidden p-3">
+                          <img 
+                            src={getItemImage(item, category)} 
+                            alt={item.nombre} 
+                            className="w-full h-full object-cover rounded-2xl"
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80';
+                            }}
+                          />
+                        </div>
+                        <div className="p-3 flex flex-col flex-1">
+                          <h3 className="font-oswald text-sm text-gray-800 leading-tight mb-1 line-clamp-2">
+                            {item.nombre}
+                          </h3>
+                          {item.descripcion && (
+                            <p className="text-[10px] text-gray-400 font-inter mb-2 line-clamp-2 leading-snug flex-1">
+                              {item.descripcion}
+                            </p>
+                          )}
+                          <div className="flex items-center justify-between mt-auto">
+                            <span className="text-primary font-bold text-base font-oswald">
+                              {item.precio ? `S/.${item.precio.toFixed(2)}` : (
+                                <span className="text-xs text-gray-500 font-medium font-inter">Desde S/.{Math.min(...item.precios.filter(p=>p)).toFixed(2)}</span>
+                              )}
+                            </span>
+                            <button 
+                              onClick={() => handleProductClick(item, category)}
+                              className="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-primary hover:text-white transition-all duration-200 hover:scale-110"
+                            >
+                              <Plus size={18} />
+                            </button>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )
+                  })}
+                </div>
+              )}
             </section>
           ))}
         </main>
