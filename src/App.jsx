@@ -168,26 +168,67 @@ export default function App() {
         if (categories.length === 0 || platos.length === 0) return;
 
         const newMenu = categories.map(catName => {
-          const catPlatos = platos.filter(p => p.categoria.toLowerCase() === catName.toLowerCase());
-          const originalCat = menuData.menu.find(c => c.categoria.toLowerCase() === catName.toLowerCase());
+          // Fix category name for PASTAS (handling typo in sheet)
+          const normalizedCatName = catName.trim().toLowerCase() === 'pasas' ? 'pastas' : catName.trim();
+          const catPlatos = platos.filter(p => p.categoria.trim().toLowerCase() === normalizedCatName.toLowerCase() || p.categoria.trim().toLowerCase() === catName.trim().toLowerCase());
+          const originalCat = menuData.menu.find(c => c.categoria.toLowerCase() === normalizedCatName.toLowerCase());
           
-          return {
-            categoria: catName,
-            descripcion_seccion: originalCat?.descripcion_seccion || '',
-            tamanos: originalCat?.tamanos || null,
-            items: catPlatos.map(p => {
-              const originalItem = originalCat?.items.find(i => i.nombre.toLowerCase() === p.nombre.toLowerCase());
+          let subcategorias = null;
+          let items = [];
+
+          if (originalCat?.subcategorias) {
+            // Update subcategories items based on sheet
+            subcategorias = originalCat.subcategorias.map(sub => {
+              // Get original items and append any new ones from sheet that don't exist
+              const updatedItems = catPlatos.map((p, index) => {
+                const originalItem = sub.items.find(i => i.nombre.toLowerCase() === p.nombre.toLowerCase()) || sub.items[index];
+                
+                return {
+                  nombre: p.nombre,
+                  descripcion: p.descripcion,
+                  precio: !isNaN(p.precio) ? p.precio : (originalItem?.precio || 0)
+                };
+              });
+
+              return {
+                ...sub,
+                items: updatedItems
+              };
+            });
+          } else {
+            // Regular items
+            items = catPlatos.map((p, index) => {
+              const originalItem = originalCat?.items?.find(i => i.nombre.toLowerCase() === p.nombre.toLowerCase()) || originalCat?.items?.[index];
               const originalBasePrice = originalItem?.precios ? originalItem.precios.find(pr => pr !== null) : originalItem?.precio;
               const isPriceChanged = !isNaN(p.precio) && p.precio !== originalBasePrice;
               
+              let newPrecios = originalItem?.precios || null;
+              if (newPrecios && isPriceChanged) {
+                // Update the base price but keep the rest
+                newPrecios = [...newPrecios];
+                const firstValidIndex = newPrecios.findIndex(pr => pr !== null);
+                if (firstValidIndex !== -1) {
+                  newPrecios[firstValidIndex] = p.precio;
+                }
+              }
+
               return {
                 nombre: p.nombre,
                 descripcion: p.descripcion,
-                precio: isPriceChanged || !originalItem?.precios ? p.precio : undefined,
-                precios: isPriceChanged ? null : originalItem?.precios,
+                precio: newPrecios ? undefined : (!isNaN(p.precio) ? p.precio : originalItem?.precio),
+                precios: newPrecios,
                 imagenUrl: p.imagenUrl || ''
               };
-            })
+            });
+          }
+
+          return {
+            categoria: normalizedCatName.toUpperCase(),
+            descripcion_seccion: originalCat?.descripcion_seccion || '',
+            tamanos: originalCat?.tamanos || null,
+            nota_adicional: originalCat?.nota_adicional || '',
+            subcategorias,
+            items
           };
         });
 
