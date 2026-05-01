@@ -83,6 +83,7 @@ export default function App() {
   };
 
   const getItemImage = (item, category) => {
+    if (item.imagen) return item.imagen;
     if (item.imagenUrl) return item.imagenUrl;
     if (category.categoria.toLowerCase().includes('promocion')) {
       const nameLower = item.nombre.toLowerCase();
@@ -186,7 +187,8 @@ export default function App() {
                 return {
                   nombre: p.nombre,
                   descripcion: p.descripcion,
-                  precio: !isNaN(p.precio) ? p.precio : (originalItem?.precio || 0)
+                  precio: !isNaN(p.precio) ? p.precio : (originalItem?.precio || 0),
+                  imagen: originalItem?.imagen
                 };
               });
 
@@ -217,7 +219,8 @@ export default function App() {
                 descripcion: p.descripcion,
                 precio: newPrecios ? undefined : (!isNaN(p.precio) ? p.precio : originalItem?.precio),
                 precios: newPrecios,
-                imagenUrl: p.imagenUrl || ''
+                imagenUrl: p.imagenUrl || '',
+                imagen: originalItem?.imagen
               };
             });
           }
@@ -381,12 +384,12 @@ export default function App() {
                           >
                             <div className="aspect-square bg-gray-50 overflow-hidden p-3">
                               <img 
-                                src={sub.imagen} 
+                                src={item.imagen || sub.imagen} 
                                 alt={item.nombre} 
                                 className="w-full h-full object-cover rounded-2xl"
                                 onError={(e) => {
                                   e.target.onerror = null;
-                                  e.target.src = 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80';
+                                  e.target.src = item.imagen || sub.imagen || 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=600&q=80';
                                 }}
                               />
                             </div>

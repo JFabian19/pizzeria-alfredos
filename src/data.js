@@ -13,38 +13,38 @@ export const menuData = {
     {
       "categoria": "PROMOCIONES",
       "items": [
-        { "nombre": "Promo MEDIANA", "descripcion": "1 PIZZA MEDIANA (6 PORCIONES) + PAN AL AJO (3 UNIDADES) + PEPSI PERSONAL", "precio": 20.90 },
-        { "nombre": "Promo FAMILIAR", "descripcion": "1 PIZZA FAMILIAR (8 PORCIONES) + PAN AL AJO (6 UNIDADES) + PEPSI 1 LT.", "precio": 32.90 },
-        { "nombre": "PROMO EXTRA FAMILIAR", "descripcion": "1 PIZZA EXTRA FAMILIAR (12 PORCIONES) + PAN AL AJO (6 UNIDADES) + PEPSI 1LT.", "precio": 38.90 },
-        { "nombre": "Dúo MEDIANO", "descripcion": "2 PIZZAS MEDIANA + PAN AL AJO (6 UNID.) + 1 PEPSI 1 LT.", "precio": 39.90 },
-        { "nombre": "Dúo EXTRAFAMILIAR", "descripcion": "2 PIZZAS EXTRA FAMILIAR + PAN AL AJO (6 UNID.) + 1 PEPSI 1.5 LT.", "precio": 59.90 },
-        { "nombre": "Súper Promo (1 Pizza Extra Fam + Lasaña)", "descripcion": "12 PORCIONES + LASAÑA + PORCIÓN DE PAN AL AJO + GASEOSA PEPSI 1.5 LT.", "precio": 49.90 }
+        { "nombre": "Promo MEDIANA", "descripcion": "1 PIZZA MEDIANA (6 PORCIONES) + PAN AL AJO (3 UNIDADES) + PEPSI PERSONAL", "precio": 20.90, "imagen": "/Promo Mediana.png" },
+        { "nombre": "Promo FAMILIAR", "descripcion": "1 PIZZA FAMILIAR (8 PORCIONES) + PAN AL AJO (6 UNIDADES) + PEPSI 1 LT.", "precio": 32.90, "imagen": "/Promo Familiar.png" },
+        { "nombre": "PROMO EXTRA FAMILIAR", "descripcion": "1 PIZZA EXTRA FAMILIAR (12 PORCIONES) + PAN AL AJO (6 UNIDADES) + PEPSI 1LT.", "precio": 38.90, "imagen": "/Promo Extra Familiar.png" },
+        { "nombre": "Dúo MEDIANO", "descripcion": "2 PIZZAS MEDIANA + PAN AL AJO (6 UNID.) + 1 PEPSI 1 LT.", "precio": 39.90, "imagen": "/Dúo Mediano.png" },
+        { "nombre": "Dúo EXTRAFAMILIAR", "descripcion": "2 PIZZAS EXTRA FAMILIAR + PAN AL AJO (6 UNID.) + 1 PEPSI 1.5 LT.", "precio": 59.90, "imagen": "/Dúo Extra Familiar.png" },
+        { "nombre": "Súper Promo (1 Pizza Extra Fam + Lasaña)", "descripcion": "12 PORCIONES + LASAÑA + PORCIÓN DE PAN AL AJO + GASEOSA PEPSI 1.5 LT.", "precio": 49.90, "imagen": "/Súper Promo.png" }
       ]
     },
     {
       "categoria": "PIZZAS",
       "tamanos": ["Personal", "Mediana", "Familiar", "Extra Fam."],
       "items": [
-        { "nombre": "MOZZARELLA", "descripcion": "QUESO MOZZARELLA, QUESO DAMBO, SALSA PIZZERA Y OREGANO", "precios": [7.50, 16.00, 23.00, 30.00] },
-        { "nombre": "AMERICANA", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA Y JAMÓN", "precios": [7.50, 16.00, 23.00, 30.00] },
-        { "nombre": "PEPPERONI", "descripcion": "QUESO MOZZARELLA, PEPPERONI Y SALSA PIZZERA", "precios": [7.50, 16.00, 23.00, 30.00] },
-        { "nombre": "SICILIANA", "descripcion": "QUESO MOZZARELLA, SALAME, PIMIENTO Y SALSA PIZZERA", "precios": [7.50, 16.00, 23.00, 30.00] },
-        { "nombre": "VEGETARIANA", "descripcion": "QUESO MOZZARELLA, CHAMPIÑON, ACEITUNA VERDE, PIMIENTO, CEBOLLA BLANCA Y SALSA PIZZERA", "precios": [null, 16.00, 23.00, 30.00] },
-        { "nombre": "HAWAIANA", "descripcion": "QUESO MOZZARELLA, JAMÓN, PIÑA Y SALSA PIZZERA", "precios": [8.50, 16.00, 23.00, 30.00] },
-        { "nombre": "FULL CHORIZO", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA Y FULL CHORIZO", "precios": [7.50, 16.00, 23.00, 30.00] },
-        { "nombre": "BRAVA", "descripcion": "QUESO MOZZARELLA, CHORIZO, TOCINO, CABANOSSI Y SALSA PIZZERA", "precios": [null, 17.00, 23.00, 30.00] },
-        { "nombre": "FUGAZZA", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, TOCINO, ACEITUNAS Y PIMIENTOS", "precios": [null, 17.00, 23.00, 32.00] },
-        { "nombre": "HAWAIANA TROPICAL", "descripcion": "QUESO MOZZARELLA, JAMÓN, PIÑA, DURAZNO Y SALSA PIZZERA", "precios": [null, 17.00, 23.00, 32.00] },
-        { "nombre": "AMAZÓNICA", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, CECINA AHUMADA Y CHORIZO AHUMADO", "precios": [null, 17.00, 24.00, 32.00] },
-        { "nombre": "CAPRICHOSA", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, JAMÓN, CABANOSSI Y PIÑA", "precios": [null, 17.00, 24.00, 32.00] },
-        { "nombre": "AMERICANA BURGER", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, CARNE PIZZERA Y LOMITO AHUMADO", "precios": [null, 17.00, 25.00, 33.00] },
-        { "nombre": "HAWAIANA CHICKEN", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, JAMÓN, PIÑA, POLLO Y BBQ", "precios": [null, 17.00, 25.00, 33.00] },
-        { "nombre": "GOURMET", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, PEPPERONI, CHAMPIÑONES Y CARNE PIZZERA", "precios": [null, 18.00, 26.00, 33.00] },
-        { "nombre": "FULL MEAT", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, PEPPERONI, JAMÓN, CARNE PIZZERA, SALCHICHA Y CHORIZO", "precios": [null, 18.00, 26.00, 34.00] },
-        { "nombre": "GORDON BLUE", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, JAMÓN, POLLO, TOCINO, Y LOMITO AHUMADO", "precios": [null, 18.00, 26.00, 34.00] },
-        { "nombre": "FULL CARNE", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, POLLO A LA BRASA, TOCINO, CARNE PIZZERA Y SALCHICHA", "precios": [null, 18.00, 28.00, 35.00] },
+        { "nombre": "MOZZARELLA", "descripcion": "QUESO MOZZARELLA, QUESO DAMBO, SALSA PIZZERA Y OREGANO", "precios": [7.50, 16.00, 23.00, 30.00], "imagen": "/pizza-mozzarella.webp" },
+        { "nombre": "AMERICANA", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA Y JAMÓN", "precios": [7.50, 16.00, 23.00, 30.00], "imagen": "/pizza-americana_1_.webp" },
+        { "nombre": "PEPPERONI", "descripcion": "QUESO MOZZARELLA, PEPPERONI Y SALSA PIZZERA", "precios": [7.50, 16.00, 23.00, 30.00], "imagen": "/pizza-pepperoni.webp" },
+        { "nombre": "SICILIANA", "descripcion": "QUESO MOZZARELLA, SALAME, PIMIENTO Y SALSA PIZZERA", "precios": [7.50, 16.00, 23.00, 30.00], "imagen": "/sicilian-pizza-with-sausage-an-146.jpg" },
+        { "nombre": "VEGETARIANA", "descripcion": "QUESO MOZZARELLA, CHAMPIÑON, ACEITUNA VERDE, PIMIENTO, CEBOLLA BLANCA Y SALSA PIZZERA", "precios": [null, 16.00, 23.00, 30.00], "imagen": "/pizza-vegetariana.webp" },
+        { "nombre": "HAWAIANA", "descripcion": "QUESO MOZZARELLA, JAMÓN, PIÑA Y SALSA PIZZERA", "precios": [8.50, 16.00, 23.00, 30.00], "imagen": "/pizza-hawaiana.webp" },
+        { "nombre": "FULL CHORIZO", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA Y FULL CHORIZO", "precios": [7.50, 16.00, 23.00, 30.00], "imagen": "/full chorizo.webp" },
+        { "nombre": "BRAVA", "descripcion": "QUESO MOZZARELLA, CHORIZO, TOCINO, CABANOSSI Y SALSA PIZZERA", "precios": [null, 17.00, 23.00, 30.00], "imagen": "/BRAVA.webp" },
+        { "nombre": "FUGAZZA", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, TOCINO, ACEITUNAS Y PIMIENTOS", "precios": [null, 17.00, 23.00, 32.00], "imagen": "/FUGAZZA.jpg" },
+        { "nombre": "HAWAIANA TROPICAL", "descripcion": "QUESO MOZZARELLA, JAMÓN, PIÑA, DURAZNO Y SALSA PIZZERA", "precios": [null, 17.00, 23.00, 32.00], "imagen": "/HAWAIANA TROPICAL.jpg" },
+        { "nombre": "AMAZÓNICA", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, CECINA AHUMADA Y CHORIZO AHUMADO", "precios": [null, 17.00, 24.00, 32.00], "imagen": "/AMAZÓNICA.jpeg" },
+        { "nombre": "CAPRICHOSA", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, JAMÓN, CABANOSSI Y PIÑA", "precios": [null, 17.00, 24.00, 32.00], "imagen": "/CAPRICHOSA.jpg" },
+        { "nombre": "AMERICANA BURGER", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, CARNE PIZZERA Y LOMITO AHUMADO", "precios": [null, 17.00, 25.00, 33.00], "imagen": "/AMERICANA BURGER.jpg" },
+        { "nombre": "HAWAIANA CHICKEN", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, JAMÓN, PIÑA, POLLO Y BBQ", "precios": [null, 17.00, 25.00, 33.00], "imagen": "/pizza-hawaiana-chicken-bbq.webp" },
+        { "nombre": "GOURMET", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, PEPPERONI, CHAMPIÑONES Y CARNE PIZZERA", "precios": [null, 18.00, 26.00, 33.00], "imagen": "/GOURMET.jpg" },
+        { "nombre": "FULL MEAT", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, PEPPERONI, JAMÓN, CARNE PIZZERA, SALCHICHA Y CHORIZO", "precios": [null, 18.00, 26.00, 34.00], "imagen": "/FULL MEAT.webp" },
+        { "nombre": "GORDON BLUE", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, JAMÓN, POLLO, TOCINO, Y LOMITO AHUMADO", "precios": [null, 18.00, 26.00, 34.00], "imagen": "/GORDON BLUE.webp" },
+        { "nombre": "FULL CARNE", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, POLLO A LA BRASA, TOCINO, CARNE PIZZERA Y SALCHICHA", "precios": [null, 18.00, 28.00, 35.00], "imagen": "/FULL CARNE.webp" },
         { "nombre": "ALFREDITO'S", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, CABANOSSI, JAMÓN, Y LOMITO AHUMADO", "precios": [null, 18.00, 28.00, 35.00] },
-        { "nombre": "SUPREMA", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, CARNE PIZZERA, JAMÓN, PEPPERONI, CHORIZO, SALCHICHA, SALAME, TOCINO, ACEITUNAS, PIMIENTO Y CHAMPIÑON", "precios": [null, 18.00, 28.00, 36.00] }
+        { "nombre": "SUPREMA", "descripcion": "QUESO MOZZARELLA, SALSA PIZZERA, CARNE PIZZERA, JAMÓN, PEPPERONI, CHORIZO, SALCHICHA, SALAME, TOCINO, ACEITUNAS, PIMIENTO Y CHAMPIÑON", "precios": [null, 18.00, 28.00, 36.00], "imagen": "/SUPREMA.jpeg" }
       ]
     },
     {
@@ -54,50 +54,50 @@ export const menuData = {
       "subcategorias": [
         {
           "nombre": "SPAGUETTIS",
-          "imagen": "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=600&q=80",
+          "imagen": "/spagueti a lo alfredo.avif",
           "items": [
-            { "nombre": "A LA BOLOGNESA", "descripcion": "Salsa de carne tradicional", "precio": 13.00 },
-            { "nombre": "A LO ALFREDO", "descripcion": "Salsa blanca cremosa con jamón y queso", "precio": 13.00 },
-            { "nombre": "EN SALSA ROSSINI", "descripcion": "Salsa fusión rosada con especias", "precio": 13.00 },
-            { "nombre": "EN SALSA PESTO", "descripcion": "Tradicional salsa verde de albahaca fresca", "precio": 13.00 },
-            { "nombre": "A LA HUANCAINA", "descripcion": "Fusión peruana con crema de ají amarillo", "precio": 13.00 },
-            { "nombre": "A LO ALFREDO ESPECIAL", "descripcion": "Receta premium de la casa", "precio": 15.00 }
+            { "nombre": "A LA BOLOGNESA", "descripcion": "Salsa de carne tradicional", "precio": 13.00, "imagen": "/A LA BOLOGNESA.jpg" },
+            { "nombre": "A LO ALFREDO", "descripcion": "Salsa blanca cremosa con jamón y queso", "precio": 13.00, "imagen": "/spagueti a lo alfredo.avif" },
+            { "nombre": "EN SALSA ROSSINI", "descripcion": "Salsa fusión rosada con especias", "precio": 13.00, "imagen": "/spagueti EN SALSA ROSSINI.webp" },
+            { "nombre": "EN SALSA PESTO", "descripcion": "Tradicional salsa verde de albahaca fresca", "precio": 13.00, "imagen": "/espaguetis-al-pesto-con-albahaca.jpg" },
+            { "nombre": "A LA HUANCAINA", "descripcion": "Fusión peruana con crema de ají amarillo", "precio": 13.00, "imagen": "/spagueti A LA HUANCAINA.jpg" },
+            { "nombre": "A LO ALFREDO ESPECIAL", "descripcion": "Receta premium de la casa", "precio": 15.00, "imagen": "/spagueti ALFREDO LOVER´S.jpg" }
           ]
         },
         {
           "nombre": "MACARRONES",
-          "imagen": "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=600&q=80",
+          "imagen": "/macarrones A LO ALFREDO.jpg",
           "items": [
-            { "nombre": "A LA BOLOGNESA", "descripcion": "Salsa de carne tradicional", "precio": 13.00 },
-            { "nombre": "A LO ALFREDO", "descripcion": "Salsa blanca cremosa con jamón y queso", "precio": 13.00 },
-            { "nombre": "EN SALSA ROSSINI", "descripcion": "Salsa fusión rosada con especias", "precio": 13.00 },
-            { "nombre": "EN SALSA PESTO", "descripcion": "Tradicional salsa verde de albahaca fresca", "precio": 13.00 },
-            { "nombre": "A LA HUANCAINA", "descripcion": "Fusión peruana con crema de ají amarillo", "precio": 13.00 },
-            { "nombre": "A LO ALFREDO ESPECIAL", "descripcion": "Receta premium de la casa", "precio": 15.00 }
+            { "nombre": "A LA BOLOGNESA", "descripcion": "Salsa de carne tradicional", "precio": 13.00, "imagen": "/portada-de-los-macarrones-a-la-bolonesa-con-carne-picada.jpg" },
+            { "nombre": "A LO ALFREDO", "descripcion": "Salsa blanca cremosa con jamón y queso", "precio": 13.00, "imagen": "/macarrones A LO ALFREDO.jpg" },
+            { "nombre": "EN SALSA ROSSINI", "descripcion": "Salsa fusión rosada con especias", "precio": 13.00, "imagen": "/macarrones EN SALSA ROSSINI.jpg" },
+            { "nombre": "EN SALSA PESTO", "descripcion": "Tradicional salsa verde de albahaca fresca", "precio": 13.00, "imagen": "/macarrones EN SALSA PESTO.jpeg" },
+            { "nombre": "A LA HUANCAINA", "descripcion": "Fusión peruana con crema de ají amarillo", "precio": 13.00, "imagen": "/macarrones-huancaina-10.webp" },
+            { "nombre": "A LO ALFREDO ESPECIAL", "descripcion": "Receta premium de la casa", "precio": 15.00, "imagen": "/macarrones ALFREDO LOVER´S.jpg" }
           ]
         },
         {
           "nombre": "FETUCCINIS",
-          "imagen": "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=600&q=80",
+          "imagen": "/fetuccini-alfredo-ccc.jpg",
           "items": [
-            { "nombre": "A LA BOLOGNESA", "descripcion": "Salsa de carne tradicional", "precio": 14.00 },
-            { "nombre": "A LO ALFREDO", "descripcion": "Salsa blanca cremosa con jamón y queso", "precio": 14.00 },
-            { "nombre": "EN SALSA ROSSINI", "descripcion": "Salsa fusión rosada con especias", "precio": 14.00 },
-            { "nombre": "EN SALSA PESTO", "descripcion": "Tradicional salsa verde de albahaca fresca", "precio": 14.00 },
-            { "nombre": "A LA HUANCAINA", "descripcion": "Fusión peruana con crema de ají amarillo", "precio": 14.00 },
-            { "nombre": "A LO ALFREDO ESPECIAL", "descripcion": "Receta premium de la casa", "precio": 16.00 }
+            { "nombre": "A LA BOLOGNESA", "descripcion": "Salsa de carne tradicional", "precio": 14.00, "imagen": "/fetuccini A LA BOLOGNESA.jpeg" },
+            { "nombre": "A LO ALFREDO", "descripcion": "Salsa blanca cremosa con jamón y queso", "precio": 14.00, "imagen": "/fetuccini A LO ALFREDO.jpeg" },
+            { "nombre": "EN SALSA ROSSINI", "descripcion": "Salsa fusión rosada con especias", "precio": 14.00, "imagen": "/fetuccini EN SALSA ROSSINI.jpeg" },
+            { "nombre": "EN SALSA PESTO", "descripcion": "Tradicional salsa verde de albahaca fresca", "precio": 14.00, "imagen": "/fetuccini EN SALSA PESTO.jpeg" },
+            { "nombre": "A LA HUANCAINA", "descripcion": "Fusión peruana con crema de ají amarillo", "precio": 14.00, "imagen": "/fetuccini A LA HUANCAINA.jpeg" },
+            { "nombre": "A LO ALFREDO ESPECIAL", "descripcion": "Receta premium de la casa", "precio": 16.00, "imagen": "/fetuccini-alfredo-ccc.jpg" }
           ]
         },
         {
           "nombre": "RAVIOLES",
-          "imagen": "https://images.unsplash.com/photo-1587740908075-9e245070dfaa?auto=format&fit=crop&w=600&q=80",
+          "imagen": "/ravioles A LO ALFREDO.jpg",
           "items": [
-            { "nombre": "A LA BOLOGNESA", "descripcion": "Salsa de carne tradicional", "precio": 17.00 },
-            { "nombre": "A LO ALFREDO", "descripcion": "Salsa blanca cremosa con jamón y queso", "precio": 17.00 },
-            { "nombre": "EN SALSA ROSSINI", "descripcion": "Salsa fusión rosada con especias", "precio": 17.00 },
-            { "nombre": "EN SALSA PESTO", "descripcion": "Tradicional salsa verde de albahaca fresca", "precio": 17.00 },
-            { "nombre": "A LA HUANCAINA", "descripcion": "Fusión peruana con crema de ají amarillo", "precio": 17.00 },
-            { "nombre": "A LO ALFREDO ESPECIAL", "descripcion": "Receta premium de la casa", "precio": 19.00 }
+            { "nombre": "A LA BOLOGNESA", "descripcion": "Salsa de carne tradicional", "precio": 17.00, "imagen": "/ravioles A LA BOLOGNESA.jpeg" },
+            { "nombre": "A LO ALFREDO", "descripcion": "Salsa blanca cremosa con jamón y queso", "precio": 17.00, "imagen": "/ravioles A LO ALFREDO.jpg" },
+            { "nombre": "EN SALSA ROSSINI", "descripcion": "Salsa fusión rosada con especias", "precio": 17.00, "imagen": "/ravioles EN SALSA ROSSINI.webp" },
+            { "nombre": "EN SALSA PESTO", "descripcion": "Tradicional salsa verde de albahaca fresca", "precio": 17.00, "imagen": "/ravioles EN SALSA PESTOjpg.jpg" },
+            { "nombre": "A LA HUANCAINA", "descripcion": "Fusión peruana con crema de ají amarillo", "precio": 17.00, "imagen": "/ravioles A LA HUANCAINA.jpg" },
+            { "nombre": "A LO ALFREDO ESPECIAL", "descripcion": "Receta premium de la casa", "precio": 19.00, "imagen": "/ravioles ALFREDO LOVER´S.webp" }
           ]
         }
       ]
@@ -105,10 +105,10 @@ export const menuData = {
     {
       "categoria": "LASAGNAS Y CANELONES",
       "items": [
-        { "nombre": "Lasagna A LA BOLOGNESA / ALFREDO / ROSSINI / PESTO", "descripcion": "Capas de pasta artesanal con tu salsa favorita y queso gratinado.", "precio": 19.00 },
-        { "nombre": "Lasagna A LO ALFREDO ESPECIAL", "descripcion": "Lasagna premium con nuestra salsa Alfredo especial gratinada.", "precio": 21.00 },
-        { "nombre": "Canelones A LA BOLOGNESA / ALFREDO / ROSSINI", "descripcion": "Tubos de pasta rellenos con carne y bañados en tu salsa preferida.", "precio": 18.00 },
-        { "nombre": "Canelones A LO ALFREDO ESPECIAL", "descripcion": "Canelones con la receta Alfredo especial de la casa.", "precio": 20.00 }
+        { "nombre": "Lasagna A LA BOLOGNESA / ALFREDO / ROSSINI / PESTO", "descripcion": "Capas de pasta artesanal con tu salsa favorita y queso gratinado.", "precio": 19.00, "imagen": "/lasana. Lasagna A LA BOLOGNESAjpg.jpg" },
+        { "nombre": "Lasagna A LO ALFREDO ESPECIAL", "descripcion": "Lasagna premium con nuestra salsa Alfredo especial gratinada.", "precio": 21.00, "imagen": "/Lasagna A LO ALFREDO ESPECIAL.jpeg" },
+        { "nombre": "Canelones A LA BOLOGNESA / ALFREDO / ROSSINI", "descripcion": "Tubos de pasta rellenos con carne y bañados en tu salsa preferida.", "precio": 18.00, "imagen": "/Canelones A LA BOLOGNESA.jpeg" },
+        { "nombre": "Canelones A LO ALFREDO ESPECIAL", "descripcion": "Canelones con la receta Alfredo especial de la casa.", "precio": 20.00, "imagen": "/Canelones A LO ALFREDO ESPECIAL.jpg" }
       ]
     },
     {
@@ -117,19 +117,20 @@ export const menuData = {
         { 
           "nombre": "CALZONE A LO ALFREDO ESPECIAL", 
           "descripcion": "MASA ARTESANAL DE GROSOR INTERMEDIO RELLENO CON QUESO MOZZARELLA, JAMÓN TOCINO, PEPPERONI, CARNE PIZZERA, CHAMPIÑONES Y FINAS HIERBAS", 
-          "precio": 20.00 
+          "precio": 20.00,
+          "imagen": "/CALZONE A LO ALFREDO ESPECIAL.jpeg" 
         }
       ]
     },
     {
       "categoria": "ADICIONALES",
       "items": [
-        { "nombre": "PORCIÓN DE PAN AL AJO TRADICIONAL", "descripcion": "Pan crujiente con pasta de ajo", "precio": 5.00 },
-        { "nombre": "PORCIÓN DE PAN AL AJO ESPECIAL", "descripcion": "(Mozzarella / Jamón / Pimiento)", "precio": 8.50 },
-        { "nombre": "PORCIÓN DE PAN AL AJO ALFREDO'S", "descripcion": "(Mozzarella / Tocino / Pimiento)", "precio": 9.00 },
-        { "nombre": "EXTRA CHESSE MEDIANA", "descripcion": "Queso extra para pizza mediana", "precio": 3.00 },
-        { "nombre": "EXTRA CHESSE FAMILIAR", "descripcion": "Queso extra para pizza familiar", "precio": 4.00 },
-        { "nombre": "OTROS ADICIONALES", "descripcion": "Ingredientes extras", "precio": 3.00 }
+        { "nombre": "PORCIÓN DE PAN AL AJO TRADICIONAL", "descripcion": "Pan crujiente con pasta de ajo", "precio": 5.00, "imagen": "/PORCIÓN DE PAN AL AJO TRADICIONAL.jpg" },
+        { "nombre": "PORCIÓN DE PAN AL AJO ESPECIAL", "descripcion": "(Mozzarella / Jamón / Pimiento)", "precio": 8.50, "imagen": "/PORCIÓN DE PAN AL AJO ESPECIAL.png" },
+        { "nombre": "PORCIÓN DE PAN AL AJO ALFREDO'S", "descripcion": "(Mozzarella / Tocino / Pimiento)", "precio": 9.00, "imagen": "/PORCIÓN DE PAN AL AJO ALFREDO'S.jpg" },
+        { "nombre": "EXTRA CHESSE MEDIANA", "descripcion": "Queso extra para pizza mediana", "precio": 3.00, "imagen": "/EXTRA CHESSE MEDIANA.webp" },
+        { "nombre": "EXTRA CHESSE FAMILIAR", "descripcion": "Queso extra para pizza familiar", "precio": 4.00, "imagen": "/EXTRA CHESSE FAMILIAR.webp" },
+        { "nombre": "OTROS ADICIONALES", "descripcion": "Ingredientes extras", "precio": 3.00, "imagen": "/OTROS ADICIONALES.webp" }
       ]
     },
     {
