@@ -165,12 +165,12 @@ export const menuData = {
     {
       "categoria": "LICORES Y COCTELES",
       "items": [
-        { "nombre": "VINOS QUEIROLO (BORGOÑA/MAGDALENA)", "descripcion": "Vino tinto o blanco", "precio": 25.00 },
-        { "nombre": "VINOS TABERNERO", "descripcion": "Borgoña / Gran Rose / Gran Tinto", "precio": 27.00 },
-        { "nombre": "VINOS TACAMA", "descripcion": "Rose / Gran Tinto", "precio": 30.00 },
-        { "nombre": "CERVEZA CUSQUEÑA RUBIA/NEGRA 330ML", "descripcion": "Cerveza nacional premium", "precio": 5.50 },
-        { "nombre": "CERVEZA CORONA / HEINEKEN", "descripcion": "Botella personal importada", "precio": 6.50 },
-        { "nombre": "CERVEZA CUSQUEÑA RUBIA/NEGRA 620ML", "descripcion": "Cerveza grande para compartir", "precio": 9.00 },
+        { "nombre": "VINOS QUEIROLO (BORGOÑA/MAGDALENA)", "descripcion": "Vino tinto o blanco", "precio": 25.00, "imagen": "/VINOS QUEIROLO (BORGOÑAMAGDALENA).webp" },
+        { "nombre": "VINOS TABERNERO", "descripcion": "Borgoña / Gran Rose / Gran Tinto", "precio": 27.00, "imagen": "/VINOS TABERNERO.webp" },
+        { "nombre": "VINOS TACAMA", "descripcion": "Rose / Gran Tinto", "precio": 30.00, "imagen": "/VINOS TACAMA.webp" },
+        { "nombre": "CERVEZA CUSQUEÑA RUBIA/NEGRA 330ML", "descripcion": "Cerveza nacional premium", "precio": 5.50, "imagen": "/CERVEZA CUSQUEÑA RUBIANEGRA 330ML.jpg" },
+        { "nombre": "CERVEZA CORONA / HEINEKEN", "descripcion": "Botella personal importada", "precio": 6.50, "imagen": "/CERVEZA CORONA HEINEKEN.jpeg" },
+        { "nombre": "CERVEZA CUSQUEÑA RUBIA/NEGRA 620ML", "descripcion": "Cerveza grande para compartir", "precio": 9.00, "imagen": "/CERVEZA CUSQUEÑA RUBIANEGRA 620ML.jpeg" },
         { "nombre": "PISCO SOUR / MARACUYA SOUR", "descripcion": "Clásico cóctel peruano", "precio": 19.90 },
         { "nombre": "CHILCANO / ALGARROBINA", "descripcion": "Variedad de bebidas a base de pisco", "precio": 19.90 },
         { "nombre": "PIÑA COLADA / MOJITO / DAIQUIRI", "descripcion": "Cócteles refrescantes", "precio": 19.90 },
