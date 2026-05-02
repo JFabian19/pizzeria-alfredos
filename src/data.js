@@ -136,30 +136,30 @@ export const menuData = {
     {
       "categoria": "BEBIDAS",
       "items": [
-        { "nombre": "AGUA MINERAL", "descripcion": "Botella de agua natural", "precio": 2.50 },
-        { "nombre": "GASEOSA PERSONAL (PEPSI)", "descripcion": "Bebida helada personal", "precio": 3.00 },
-        { "nombre": "GASEOSA PERSONAL (COCA COLA / INKA COLA)", "descripcion": "Bebida helada personal clásica", "precio": 3.50 },
-        { "nombre": "GASEOSA 1L (PEPSI)", "descripcion": "Gaseosa para compartir", "precio": 5.50 },
-        { "nombre": "GASEOSA 1.5 L (PEPSI/7UP)", "descripcion": "Gaseosa mediana familiar", "precio": 6.50 },
-        { "nombre": "GASEOSA 1.5 L (COCA COLA / INKA COLA)", "descripcion": "Gaseosa familiar clásica", "precio": 9.00 },
-        { "nombre": "CHICHA MORADA (JARRA DE 1/2 LITRO)", "descripcion": "Refresco natural de maíz morado", "precio": 5.00 },
-        { "nombre": "CHICHA MORADA (JARRA DE 1 LITRO)", "descripcion": "Refresco natural familiar", "precio": 10.00 },
-        { "nombre": "LIMONADA AMERICANA (JARRA DE 1/2 LITRO)", "descripcion": "Jugo de limón fresco", "precio": 5.00 },
-        { "nombre": "LIMONADA AMERICANA (JARRA DE 1 LITRO)", "descripcion": "Jugo familiar", "precio": 10.00 },
-        { "nombre": "MARACUYA 1/2 LT.", "descripcion": "Jugo de maracuyá natural", "precio": 5.00 },
-        { "nombre": "MARACUYA 1 LT.", "descripcion": "Jugo de maracuyá familiar", "precio": 10.00 }
+        { "nombre": "AGUA MINERAL", "descripcion": "Botella de agua natural", "precio": 2.50, "imagen": "/AGUA MINERAL.png" },
+        { "nombre": "GASEOSA PERSONAL (PEPSI)", "descripcion": "Bebida helada personal", "precio": 3.00, "imagen": "/GASEOSA PERSONAL (PEPSI).webp" },
+        { "nombre": "GASEOSA PERSONAL (COCA COLA / INKA COLA)", "descripcion": "Bebida helada personal clásica", "precio": 3.50, "imagen": "/GASEOSA PERSONAL (COCA COLA  INKA COLA).webp" },
+        { "nombre": "GASEOSA 1L (PEPSI)", "descripcion": "Gaseosa para compartir", "precio": 5.50, "imagen": "/GASEOSA 1L (PEPSI).webp" },
+        { "nombre": "GASEOSA 1.5 L (PEPSI/7UP)", "descripcion": "Gaseosa mediana familiar", "precio": 6.50, "imagen": "/GASEOSA 1.5 L (PEPSI7UP).webp" },
+        { "nombre": "GASEOSA 1.5 L (COCA COLA / INKA COLA)", "descripcion": "Gaseosa familiar clásica", "precio": 9.00, "imagen": "/GASEOSA 1.5 L (COCA COLA  INKA COLA).webp" },
+        { "nombre": "CHICHA MORADA (JARRA DE 1/2 LITRO)", "descripcion": "Refresco natural de maíz morado", "precio": 5.00, "imagen": "/CHICHA MORADA (JARRA DE 12 LITRO).jpeg" },
+        { "nombre": "CHICHA MORADA (JARRA DE 1 LITRO)", "descripcion": "Refresco natural familiar", "precio": 10.00, "imagen": "/CHICHA MORADA (JARRA DE 1 LITRO).webp" },
+        { "nombre": "LIMONADA AMERICANA (JARRA DE 1/2 LITRO)", "descripcion": "Jugo de limón fresco", "precio": 5.00, "imagen": "/LIMONADA AMERICANA (JARRA DE 12 LITRO).jpg" },
+        { "nombre": "LIMONADA AMERICANA (JARRA DE 1 LITRO)", "descripcion": "Jugo familiar", "precio": 10.00, "imagen": "/LIMONADA AMERICANA (JARRA DE 1 LITRO).jpeg" },
+        { "nombre": "MARACUYA 1/2 LT.", "descripcion": "Jugo de maracuyá natural", "precio": 5.00, "imagen": "/MARACUYA 12 LT..webp" },
+        { "nombre": "MARACUYA 1 LT.", "descripcion": "Jugo de maracuyá familiar", "precio": 10.00, "imagen": "/MARACUYA 1 LT..jpeg" }
       ]
     },
     {
       "categoria": "FROZEN Y CAFETERÍA",
       "items": [
-        { "nombre": "JARRA DE 1/2L (FROZEN)", "descripcion": "(LIMÓN / MARACUYA / FRESA / CHICHA)", "precio": 6.00 },
-        { "nombre": "JARRA DE 1L (FROZEN)", "descripcion": "(LIMÓN / MARACUYA / FRESA / CHICHA)", "precio": 12.00 },
-        { "nombre": "INFUSIONES (TÉ/ANIS/MANZANILLA)", "descripcion": "Bebidas calientes aromáticas", "precio": 3.00 },
-        { "nombre": "CAFÉ AMERICANO", "descripcion": "Café pasado puro", "precio": 5.50 },
-        { "nombre": "CAFÉ CON LECHE", "descripcion": "Mezcla clásica", "precio": 6.50 },
-        { "nombre": "CAPUCCINO SIN CREMA", "descripcion": "Café espumoso italiano", "precio": 7.90 },
-        { "nombre": "CAPUCCINO CON CREMA", "descripcion": "Capuccino premium con crema batida", "precio": 9.90 }
+        { "nombre": "JARRA DE 1/2L (FROZEN)", "descripcion": "(LIMÓN / MARACUYA / FRESA / CHICHA)", "precio": 6.00, "imagen": "/JARRA DE 12L (FROZEN).webp" },
+        { "nombre": "JARRA DE 1L (FROZEN)", "descripcion": "(LIMÓN / MARACUYA / FRESA / CHICHA)", "precio": 12.00, "imagen": "/JARRA DE 1L (FROZEN).jpg" },
+        { "nombre": "INFUSIONES (TÉ/ANIS/MANZANILLA)", "descripcion": "Bebidas calientes aromáticas", "precio": 3.00, "imagen": "/INFUSIONES (TÉANISMANZANILLA).jpg" },
+        { "nombre": "CAFÉ AMERICANO", "descripcion": "Café pasado puro", "precio": 5.50, "imagen": "/CAFÉ AMERICANO.jpg" },
+        { "nombre": "CAFÉ CON LECHE", "descripcion": "Mezcla clásica", "precio": 6.50, "imagen": "/CAFÉ CON LECHE.jpeg" },
+        { "nombre": "CAPUCCINO SIN CREMA", "descripcion": "Café espumoso italiano", "precio": 7.90, "imagen": "/CAPUCCINO SIN CREMA.jpeg" },
+        { "nombre": "CAPUCCINO CON CREMA", "descripcion": "Capuccino premium con crema batida", "precio": 9.90, "imagen": "/CAPUCCINO CON CREMA.jpeg" }
       ]
     },
     {
