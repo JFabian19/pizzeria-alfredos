@@ -341,7 +341,7 @@ export default function App() {
           <div className="animate-marquee flex gap-4 items-center">
             {[...Array(3)].map((_, i) => (
               <span key={i} className="font-oswald text-sm font-medium tracking-wide flex items-center gap-4">
-                ¡DELICIOSAMENTE IRRESISTIBLE! • PASTAS & PIZZAS • ATENCIÓN DE 12PM A 12AM • HAPPY HOUR 2X1 EN CÓCTELES • 
+                ¡DELICIOSAMENTE IRRESISTIBLE! • PASTAS & PIZZAS • ATENCIÓN DE 12PM A 12AM • 
               </span>
             ))}
           </div>
